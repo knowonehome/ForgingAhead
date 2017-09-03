@@ -10,6 +10,8 @@ namespace ForgingAhead.Models
     public class Equipment
     {
         [Key]
+        [Required]
+        [MinLength(3)]
         public string Name { get; set; }
     }
 }

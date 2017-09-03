@@ -9,7 +9,10 @@ namespace ForgingAhead.Models
     public class Quest
     {
         [Key]
+        [Required]
+        [MinLength(3)]
         public string Name { get; set; }
+        [Required]
         public bool IsActive { get; set; }
 
 

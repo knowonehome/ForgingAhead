@@ -31,19 +31,24 @@ namespace ForgingAhead.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
         public IActionResult Index()
         {
             ViewData["Title"] = "Equipment";
-            var model = _context.Characters.ToList();
+            var model = _context.Equipment.ToList();
             return View(model);
         }
 
+        [HttpGet]
+        [Route("Equipment/{name}/Details")]
         public IActionResult Details(string name)
         {
             var model = _context.Equipment.FirstOrDefault(e => e.Name == name);
             return View(model);
         }
 
+        [HttpPost]
         public IActionResult Update(Equipment equipment)
         {
             _context.Entry(equipment).State = EntityState.Modified;
@@ -51,6 +56,7 @@ namespace ForgingAhead.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
         public IActionResult Delete(string name)
         {
             var original = _context.Equipment.FirstOrDefault(e => e.Name == name);
@@ -60,6 +66,16 @@ namespace ForgingAhead.Controllers
                 _context.SaveChanges();
             }
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        [Route("Equipment/{name}/Edit")]
+        public IActionResult Edit(string name)
+        {
+            ViewData["Title"] = "Edit " + name;
+
+            var model = _context.Equipment.FirstOrDefault(e => e.Name == name);
+            return View(model);
         }
     }
 }

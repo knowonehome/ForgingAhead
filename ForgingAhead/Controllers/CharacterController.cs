@@ -32,6 +32,7 @@ namespace ForgingAhead.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             ViewData["Title"] = "Characters";
@@ -45,12 +46,15 @@ namespace ForgingAhead.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        [Route("Character/{name}/Details")]
         public IActionResult Details(string name)
         {
             var model = _context.Characters.FirstOrDefault(e => e.Name == name);
             return View(model);
         }
 
+        [HttpPost]
         public IActionResult Update(Character character)
         {
             _context.Entry(character).State = EntityState.Modified;
@@ -58,6 +62,7 @@ namespace ForgingAhead.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
         public IActionResult Delete(string name)
         {
             var original = _context.Characters.FirstOrDefault(e => e.Name == name);
@@ -67,6 +72,16 @@ namespace ForgingAhead.Controllers
                 _context.SaveChanges();
             }
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        [Route("Character/{name}/Edit")]
+        public IActionResult Edit(string name)
+        {
+            ViewData["Title"] = "Edit " + name;
+
+            var model = _context.Characters.FirstOrDefault(e => e.Name == name);
+            return View(model);
         }
     }
 }

@@ -32,6 +32,7 @@ namespace ForgingAhead.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             ViewData["Title"] = "Quests";
@@ -39,12 +40,15 @@ namespace ForgingAhead.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        [Route("Quest/{name}/Details")]
         public IActionResult Details(string name)
         {
             var model = _context.Quests.FirstOrDefault(e => e.Name == name);
             return View(model);
         }
 
+        [HttpPost]
         public IActionResult Update(Quest quest)
         {
             _context.Entry(quest).State = EntityState.Modified;
@@ -52,6 +56,7 @@ namespace ForgingAhead.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
         public IActionResult Delete(string name)
         {
             var original = _context.Quests.FirstOrDefault(e => e.Name == name);
@@ -61,6 +66,16 @@ namespace ForgingAhead.Controllers
                 _context.SaveChanges();
             }
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        [Route("Quest/{name}/Edit")]
+        public IActionResult Edit(string name)
+        {
+            ViewData["Title"] = "Edit " + name;
+
+            var model = _context.Quests.FirstOrDefault(e => e.Name == name);
+            return View(model);
         }
     }
 }

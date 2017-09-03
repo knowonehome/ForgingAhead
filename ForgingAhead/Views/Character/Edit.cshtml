@@ -1,0 +1,9 @@
+﻿@model ForgingAhead.Models.Character
+<h2>Edit Character</h2>
+<hr />
+<form asp-action="Update" asp-controller="Character">
+    @Html.EditorForModel()
+    <input type="submit" value="Update" class="btn btn-default"/>
+    <div asp-validation-summary="All"></div>
+</form>
+<div style="clear:both;"></div>
