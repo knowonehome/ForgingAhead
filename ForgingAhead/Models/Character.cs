@@ -15,16 +15,16 @@ namespace ForgingAhead.Models
         [Display(Name = "Is Active")]
         [Required]
         public bool IsActive { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Level field is required.")]
         [Range(1, 20)]
         public int Level { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Strength field is required.")]
         [Range(1,18)]
         public int Strength { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Dexterity field is required.")]
         [Range(1, 18)]
         public int Dexterity { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Intelligence field is required.")]
         [Range(1, 18)]
         public int Intelligence { get; set; }
 

@@ -27,6 +27,10 @@ namespace ForgingAhead.Controllers
         [HttpPost]
         public IActionResult Create(Character character)
         {
+            if (_context.Characters.Any(e => e.Name == character.Name))
+                ModelState.AddModelError("Name", "Name is already in use.");
+            if (!ModelState.IsValid)
+                return View(character);
             _context.Characters.Add(character);
             _context.SaveChanges();
             return RedirectToAction("Index");

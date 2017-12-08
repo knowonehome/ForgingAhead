@@ -27,6 +27,10 @@ namespace ForgingAhead.Controllers
         [HttpPost]
         public IActionResult Create(Quest quest)
         {
+            if (_context.Quests.Any(e => e.Name == quest.Name))
+                ModelState.AddModelError("Name", "Name is already in use.");
+            if (!ModelState.IsValid)
+                return View(quest);
             _context.Quests.Add(quest);
             _context.SaveChanges();
             return RedirectToAction("Index");

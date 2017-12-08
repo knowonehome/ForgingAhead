@@ -10,7 +10,7 @@ namespace ForgingAhead.Models
     public class Equipment
     {
         [Key]
-        [Required]
+        [Required(ErrorMessage = "Name cannot be null or empty")]
         [MinLength(3)]
         public string Name { get; set; }
     }

@@ -27,7 +27,10 @@ namespace ForgingAhead.Controllers
         [HttpPost]
         public IActionResult Create(Equipment equipment)
         {
-            _context.Equipment.Add(equipment);
+            if (_context.Equipment.Any(e => e.Name == equipment.Name))
+                ModelState.AddModelError("Name", "Name is already in use.");
+            if (!ModelState.IsValid)
+                _context.Equipment.Add(equipment);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
